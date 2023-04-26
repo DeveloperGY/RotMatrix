@@ -152,3 +152,27 @@ void rm_retrieveOpenGLVec3f(float *openGLVec3f, rm_vec4f v)
 
     return;
 }
+
+float rm_dotProduct(rm_vec4f l, rm_vec4f r)
+{
+    float result = 0;
+
+    result += l.v[0] * r.v[0];
+    result += l.v[1] * r.v[1];
+    result += l.v[2] * r.v[2];
+
+    return result;
+}
+
+rm_vec4f rm_crossProduct(rm_vec4f l, rm_vec4f r, int isPosition)
+{
+    // xyzzy
+
+    rm_vec4f result = rm_genVec4f(0, 0, 0, isPosition);
+
+    result.v[0] = l.v[1] * r.v[2] - l.v[2] * r.v[1];
+    result.v[1] = l.v[2] * r.v[0] - l.v[0] * r.v[2];
+    result.v[2] = l.v[0] * r.v[1] - l.v[1] * r.v[3];
+
+    return result;
+}

@@ -139,6 +139,27 @@ rm_mat4f rm_transpose4f(rm_mat4f m);
 */
 void rm_retrieveOpenGLVec3f(float *openGLVec3f, rm_vec4f v);
 
+/**
+ * @brief Returns the dot product of 2 vectors (disregards the 4th, w component)
+ * 
+ * @param l The vector on the left
+ * @param r The vector ont he right
+ * 
+ * @return The dot product of the two vectors
+*/
+float rm_dotProduct(rm_vec4f l, rm_vec4f r);
+
+/**
+ * @brief Returns the cross product of 2 vectors (disregards the 4th, w component)
+ * 
+ * @param l The vector on the left
+ * @param r The vector ont he right
+ * @param isPosition 0: Direction, 1: Position
+ * 
+ * @return The cross product of the two vectors
+*/
+rm_vec4f rm_crossProduct(rm_vec4f l, rm_vec4f r, int isPosition);
+
 #ifdef __cplusplus
 }
 #endif
