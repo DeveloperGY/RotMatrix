@@ -14,86 +14,130 @@ extern "C" {
 #endif
 
 
-typedef float rm_vec4f[4];
+// typedef float rm_vec4f[4];
+
+typedef struct
+{
+    float v[4];
+} rm_vec4f;
 
 // This is row major whereas opengl matrices are column major
-typedef float rm_mat4f[16];
-
-typedef float rm_glVec[3];
-typedef float rm_glMat[16];
+typedef struct
+{
+    float m[16];
+} rm_mat4f;
 
 /**
- * @brief Applies a matrix to a vector and puts ther result in the specified vector
+ * @brief Applies a matrix to a vector
  * 
- * @param result A pointer to the vector to store the result in
  * @param v The vector to apply the matrix to
  * @param m The matrix to apply
+ * 
+ * @return The resulting vector
 */
-void rm_applyMatrix4f(rm_vec4f *result, rm_vec4f *v, rm_mat4f *m);
+rm_vec4f rm_applyMatrix4f(rm_vec4f v, rm_mat4f m);
 
 /**
- * @brief Multiplies two matrices together and stores the result in the specified matrix
+ * @brief Multiplies two matrices together
  * 
- * @param result A pointer to the matrix to store the result in
  * @param l The matrix to put on the left of the multiplication
  * @param r The matrix to put on the right of the multiplication
+ * 
+ * @return The resulting matrix
 */
-void rm_multiplyMatrix4f(rm_mat4f *result, rm_mat4f *l, rm_mat4f *r);
+rm_mat4f rm_multiplyMatrix4f(rm_mat4f l, rm_mat4f r);
 
 /**
  * @brief Generates a rotation matrix for the x-axis for the specified degree measure
  * 
- * @param result The matrix to store the resulting rotation matrix in
  * @param degrees The amount of degrees to set as the rotation
+ * 
+ * @return The rotation matrix of the specified axis and degree measure
 */
-void rm_genRotationX4f(rm_mat4f *result, float degrees);
+rm_mat4f rm_genRotationX4f(float degrees);
 
 /**
  * @brief Generates a rotation matrix for the y-axis for the specified degree measure
  * 
- * @param result The matrix to store the resulting rotation matrix in
  * @param degrees The amount of degrees to set as the rotation
+ * 
+ * @return The rotation matrix of the specified axis and degree measure
 */
-void rm_genRotationY4f(rm_mat4f *result, float degrees);
+rm_mat4f rm_genRotationY4f(float degrees);
 
 /**
  * @brief Generates a rotation matrix for the z-axis for the specified degree measure
  * 
- * @param result The matrix to store the resulting rotation matrix in
  * @param degrees The amount of degrees to set as the rotation
+ * 
+ * @return The rotation matrix of the specified axis and degree measure
 */
-void rm_genRotationZ4f(rm_mat4f *result, float degrees);
+rm_mat4f rm_genRotationZ4f(float degrees);
+
+/**
+ * @brief Generates a translation matrix
+ * 
+ * @param x The amount to translate in the x axis
+ * @param y The amount to translate in the y axis
+ * @param z The amount to translate in the z axis
+ * 
+ * @return The resulting translation matrix
+*/
+rm_mat4f rm_genTranslation4f(float x, float y, float z);
+
+/**
+ * @brief Generates a scale matrix
+ * 
+ * @param x The amount to scale on the x axis
+ * @param y The amount to scale on the y axis
+ * @param z The amount to scale on the z axis
+ * 
+ * @return The resulting scale matrix
+*/
+rm_mat4f rm_genScale4f(float x, float y, float z);
+
+/**
+ * @brief Generates an identity matrix
+ * 
+ * @return The identity matrix
+*/
+rm_mat4f rm_genIdentity4f();
+
+/**
+ * @brief Generates a zero matrix
+ * 
+ * @return The zero matrix
+*/
+rm_mat4f rm_genZero4f();
+
+/**
+ * @brief Generates a vector
+ * 
+ * @param x The x component
+ * @param y The y component
+ * @param z The z component
+ * @param w The w component, if its 1, its a point in 3d space, if its 0, its a direction in 3d space
+ * 
+ * @return The vector you so desire
+*/
+rm_vec4f rm_genVec4f(float x, float y, float z, float w);
 
 /**
  * @brief Transposes a matrix and stroes the result in the specifed matrix
  * 
- * @param result The matrix to store the result in
  * @param m The matrix to transpose
+ * 
+ * @return The transposed matrix
 */
-void rm_transpose4f(rm_mat4f *result, rm_mat4f *m);
+rm_mat4f rm_transpose4f(rm_mat4f m);
 
 /**
- * @brief Generates an identity matrix and stores it in the specified matrix
+ * @brief Stores an opengl compatable version of a rotmatrix vector in the specified pointer
  * 
- * @param result The matrix to store the identity matrix in
+ * @param openGLVec3f a float pointer that has 3 floats of space allocated to it (or you risk memory corruption)
+ * @param v the rotmatrix vector you want to convert
 */
-void rm_genIdentity4f(rm_mat4f *result);
-
-/**
- * @brief Turns an rm_vec4f to an opengl compatable vector
- * 
- * @param glvec The resulting opengl compatable vector
- * @param v The vector to openglify
-*/
-void rm_toGLVec(rm_glVec *glvec, rm_vec4f *v);
-
-/**
- * @brief Turns an rm_mat4f to an opengl compatable matrix
- * 
- * @param glmat The resulting opengl compatable matrix
- * @param m The matrix to openglify
-*/
-void rm_toGLMat(rm_glMat *glmat,  rm_mat4f *m);
+void rm_retrieveOpenGLVec3f(float *openGLVec3f, rm_vec4f v);
 
 #ifdef __cplusplus
 }
