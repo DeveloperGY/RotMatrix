@@ -176,3 +176,16 @@ rm_vec4f rm_crossProduct(rm_vec4f l, rm_vec4f r, int isPosition)
 
     return result;
 }
+
+rm_vec4f rm_normalize(rm_vec4f v)
+{
+    rm_vec4f result = rm_genVec4f(0, 0, 0, 0);
+    float magnitude = sqrtf(pow(v.v[0], 2) + pow(v.v[1], 2) + pow(v.v[2], 2));
+
+    result.v[0] = v.v[0] / magnitude;
+    result.v[1] = v.v[1] / magnitude;
+    result.v[2] = v.v[2] / magnitude;
+    result.v[3] = v.v[3];
+
+    return result;
+}

@@ -160,6 +160,15 @@ float rm_dotProduct(rm_vec4f l, rm_vec4f r);
 */
 rm_vec4f rm_crossProduct(rm_vec4f l, rm_vec4f r, int isPosition);
 
+/**
+ * @brief Returns the normalized version of a vector
+ * 
+ * @param v The vector to normalize
+ * 
+ * @return The normalized vector
+*/
+rm_vec4f rm_normalize(rm_vec4f v);
+
 #ifdef __cplusplus
 }
 #endif
